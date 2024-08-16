@@ -1,41 +1,57 @@
 import React, { useState } from 'react'
-import { BackButton, ButtonText, FieldsContainer, FieldsLineContainer, Input, InputContainer, InputLabel, InputLabelContainer, Line, LoginButton, NormalText, OrContainer, OrLine, OrText, GoogleButton, ScrollContainer, TextContainer, Title, GoogleIcon } from './styled';
+import { BackButton, ButtonText, FieldsContainer, FieldsLineContainer, Input, InputContainer, InputLabel, InputLabelContainer, Line, NormalText, ScrollContainer, TextContainer, Title, RegisterButton } from './styled';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from 'styled-components/native'
 import { PropsStack } from '../../routes';
 import { LinearGradient } from 'expo-linear-gradient';
 import { RFValue } from 'react-native-responsive-fontsize';
-import { FontAwesome6, MaterialIcons } from "@expo/vector-icons"
+import { FontAwesome6, MaterialIcons, FontAwesome } from "@expo/vector-icons"
 import useAuth from '../../hook/useAuth';
 import { Alert } from 'react-native';
 
-const googleIcon = require("../../assets/images/google-icon.png")
-
 interface fieldsProps {
+    name: string;
     email: string;
     password: string;
+    confirmPassword: string;
 }
 
-const Login = () => {
+const Register = () => {
     const theme = useTheme();
     const navigation = useNavigation<PropsStack>();
-    const { login } = useAuth();
+    const { register } = useAuth();
 
     const [fields, setFields] = useState<fieldsProps>({
+        name: "",
         email: "",
-        password: ""
+        password: "",
+        confirmPassword: ""
     });
 
-    const handleLogin = () => {
+    const handleRegister = async () => {
+        const trimmedName = fields.name.trim();
         const trimmedEmail = fields.email.trim();
         const trimmedPassword = fields.password.trim();
+        const trimmedConfirmPassword = fields.confirmPassword.trim();
 
-        if (!trimmedEmail || !trimmedPassword) {
+        if (!trimmedName || !trimmedEmail || !trimmedPassword || !trimmedConfirmPassword) {
             Alert.alert("Aviso", "Preencha todos os campos!");
             return;
         }
 
-        login(trimmedEmail, trimmedPassword);
+        if (trimmedPassword.length < 8) {
+            Alert.alert("Aviso", "A senha deve conter pelo menos 8 caracteres!");
+            return;
+        }
+
+        if (trimmedPassword !== trimmedConfirmPassword) {
+            Alert.alert("Aviso", "As senhas são diferentes!");
+            return;
+        }
+
+        register(trimmedName, trimmedEmail, trimmedPassword);
+        Alert.alert("Sucesso", "Usuário cadastrado com sucesso!");
+        navigation.navigate("Login");
     }
 
     return (
@@ -47,13 +63,13 @@ const Login = () => {
                 activeOpacity={0.85}
                 onPress={() => navigation.goBack()}
             >
-                <FontAwesome6 name="arrow-left" size={RFValue(20)} color={theme.colors.darkGreen} />
+                <FontAwesome6 name="arrow-left" size={RFValue(26)} color={theme.colors.darkGreen} />
             </BackButton>
 
             <ScrollContainer>
                 <TextContainer>
-                    <Title>Que bom te ver novamente!</Title>
-                    <NormalText>Para uma melhor experiência realize o login pelos campos abaixo.</NormalText>
+                    <Title>Que bom te ver por aqui!</Title>
+                    <NormalText>Para uma melhor experiência realize o cadastro pelos campos abaixo.</NormalText>
                 </TextContainer>
 
                 <LinearGradient
@@ -70,6 +86,22 @@ const Login = () => {
                         <Line />
 
                         <FieldsContainer>
+                            <InputLabelContainer>
+                                <InputLabel>Usuário</InputLabel>
+                                <InputContainer>
+                                    <FontAwesome name="user" size={RFValue(26)} color={theme.colors.white} style={{ marginLeft: RFValue(8), marginRight: RFValue(8) }} />
+
+                                    <Input
+                                        placeholder='Digite seu nome de usuário...'
+                                        placeholderTextColor={theme.colors.placeholderColor}
+                                        value={fields.name}
+                                        onChangeText={(text) => {
+                                            setFields({ ...fields, name: text })
+                                        }}
+                                    />
+                                </InputContainer>
+                            </InputLabelContainer>
+
                             <InputLabelContainer>
                                 <InputLabel>Email</InputLabel>
                                 <InputContainer>
@@ -103,27 +135,30 @@ const Login = () => {
                                 </InputContainer>
                             </InputLabelContainer>
 
-                            <LoginButton
+                            <InputLabelContainer>
+                                <InputLabel>COnfirmar senha</InputLabel>
+                                <InputContainer>
+                                    <MaterialIcons name="lock" size={RFValue(26)} color={theme.colors.white} style={{ marginLeft: RFValue(8), marginRight: RFValue(8) }} />
+
+                                    <Input
+                                        placeholder='Digite sua senha novamente...'
+                                        placeholderTextColor={theme.colors.placeholderColor}
+                                        secureTextEntry
+                                        value={fields.confirmPassword}
+                                        onChangeText={(text) => {
+                                            setFields({ ...fields, confirmPassword: text })
+                                        }}
+                                    />
+                                </InputContainer>
+                            </InputLabelContainer>
+
+                            <RegisterButton
                                 activeOpacity={0.85}
-                                onPress={handleLogin}
+                                onPress={handleRegister}
                             >
                                 <ButtonText>Acessar</ButtonText>
                                 <FontAwesome6 name="circle-arrow-right" size={RFValue(26)} color={theme.colors.white} style={{ position: "absolute", right: RFValue(18), top: RFValue(16) }} />
-                            </LoginButton>
-
-                            <OrContainer>
-                                <OrLine />
-                                <OrText>OU</OrText>
-                                <OrLine />
-                            </OrContainer>
-
-                            <GoogleButton
-                                activeOpacity={0.85}
-                            >
-                                <GoogleIcon source={googleIcon} />
-                                <ButtonText>Google</ButtonText>
-                                <FontAwesome6 name="circle-arrow-right" size={RFValue(26)} color={theme.colors.white} style={{ position: "absolute", right: RFValue(18), top: RFValue(14) }} />
-                            </GoogleButton>
+                            </RegisterButton>
                         </FieldsContainer>
                     </FieldsLineContainer>
                 </LinearGradient>
@@ -132,4 +167,4 @@ const Login = () => {
     )
 }
 
-export default Login;
+export default Register;

@@ -1,24 +1,31 @@
 import styled from "styled-components/native";
-import Constants from 'expo-constants';
+import Constants from "expo-constants";
 import { RFValue } from "react-native-responsive-fontsize";
 
 const statusBarHeight = Constants.statusBarHeight;
 
+export const BackButton = styled.TouchableOpacity`
+    position: absolute;
+    top: ${ statusBarHeight + RFValue(18)}px;
+    left: ${RFValue(18)}px;
+    height: ${RFValue(40)}px;
+    width: ${RFValue(40)}px;
+    background-color: ${({ theme }) => theme.colors.lightGreen};
+    border-radius: ${RFValue(20)}px;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+`;
+
 export const ScrollContainer = styled.ScrollView`
-    padding-top: ${statusBarHeight + 50}px;
+    padding-top: ${statusBarHeight + 100}px;
     width: 100%;
 `
 
-export const LogoTextContainer = styled.View`
+export const TextContainer = styled.View`
     align-items: center;
     margin: 0 ${RFValue(18)}px;
 `;
-
-export const LogoImage = styled.Image.attrs({
-    resizeMode: 'contain'
-})`
-    height: ${RFValue(150)}px;
-`
 
 export const Title = styled.Text`
     font-size: ${RFValue(25)}px;
@@ -35,7 +42,7 @@ export const NormalText = styled.Text`
     margin-top: ${RFValue(5)}px;
 `
 
-export const ButtonsLineContainer = styled.View`
+export const FieldsLineContainer = styled.View`
     flex: 1;
     align-items: center;
 `;
@@ -48,12 +55,39 @@ export const Line = styled.View`
     border-radius: ${RFValue(5)}px;
 `
 
-export const ButtonsContainer = styled.View`
+export const FieldsContainer = styled.View`
     width: 100%;
     padding: ${RFValue(60)}px ${RFValue(18)}px 0 ${RFValue(18)}px;
 `;
 
-export const LoginButton = styled.TouchableOpacity`
+export const InputLabelContainer = styled.View`
+    margin-bottom: ${RFValue(20)}px;
+`;
+
+export const InputLabel = styled.Text`
+    font-size: ${RFValue(12)}px;
+    font-weight: 500;
+    color: ${({ theme }) => theme.colors.darkGreen};
+    margin-left: ${RFValue(16)}px;
+`;
+
+export const InputContainer = styled.View`
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    height: ${RFValue(40)}px;
+    background-color: ${({ theme }) => theme.colors.bgButtonLight};
+    border: ${RFValue(2)}px solid ${({ theme }) => theme.colors.darkGreen};
+    border-radius: ${RFValue(5)}px;
+`;
+
+export const Input = styled.TextInput`
+    flex: 1;
+    color: ${({ theme }) => theme.colors.white};
+    font-size: ${RFValue(18)}px;
+`;
+
+export const RegisterButton = styled.TouchableOpacity`
     width: 100%;
     height: ${RFValue(60)}px;
     background-color: ${({ theme }) => theme.colors.dark};
@@ -62,35 +96,9 @@ export const LoginButton = styled.TouchableOpacity`
     align-items: center;
 `;
 
-export const RegisterButton = styled(LoginButton)`
-    background-color: ${({ theme }) => theme.colors.bgButtonLight};
-    border: ${RFValue(3)}px solid ${({ theme }) => theme.colors.dark};
-`;
-
 export const ButtonText = styled.Text`
     font-size: ${RFValue(22)}px;
     font-weight: 900;
     text-transform: uppercase;
     color: ${({ theme }) => theme.colors.white};
-`;
-
-export const OrContainer = styled.View`
-    width: 100%;
-    margin: ${RFValue(25)}px 0;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-`;
-
-export const OrLine = styled.View`
-    width: 40%;
-    height: ${RFValue(2)}px;
-    background-color: ${({ theme }) => theme.colors.bgButtonLight};
-    border-radius: ${RFValue(1)}px;
-`;
-
-export const OrText = styled.Text`
-    font-size: ${RFValue(18)}px;
-    font-weight: 700;
-    color: ${({ theme }) => theme.colors.bgButtonLight};
 `;

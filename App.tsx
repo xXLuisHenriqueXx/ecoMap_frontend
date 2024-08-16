@@ -2,7 +2,7 @@ import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { AuthContextProvider } from './src/contexts/AuthContext';
 import { ThemeProvider } from 'styled-components';
-import { myTheme } from './styled';
+import { myTheme } from './src/styles';
 import Routes from './src/routes';
 
 export default function App() {
