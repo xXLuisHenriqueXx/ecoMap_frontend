@@ -33,10 +33,16 @@ npx expo start
 
 ## Estrutura do Projeto
 - src/
+  - assets/: Imagens, ícones e outros recursos estáticos.
   - components/: Componentes reutilizáveis da aplicação.
+  - contexts/: Contextos globais do React para gerenciar estados e dados que precisam ser acessados em múltiplos componentes.
+  - entities/: Definições e interfaces das entidades principais da aplicação.
+  - hook/: Custom hooks do React para encapsular lógica reutilizável, como manipulação de estados, efeitos colaterais, ou integração com APIs.
+  - routes/: Configuração das rotas de navegação da aplicação, definindo as transições entre as telas.
   - screens/: Telas do aplicativo, como Home, Mapa, e Lista de Locais.
   - services/: Serviços de API e outras funcionalidades de backend.
-  - assets/: Imagens, ícones e outros recursos estáticos.
+  - styles/: Estilos globais e temas da aplicação.
+  - utils/: Funções utilitárias e helpers, que podem ser reutilizadas em diferentes partes do aplicativo para realizar tarefas comuns.
 
 ---
 
