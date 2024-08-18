@@ -7,7 +7,7 @@ EcoMap é um aplicativo para celular que ajuda os usuários a encontrar locais d
 - **Registro e Login**: Permite que os usuários se registrem e façam login na aplicação.
 - **Salvamento de Locais**: Usuários registrados podem salvar locais de descarte para fácil acesso posterior.
 
-## Tecnologias Utilizadas
+## Tecnologias Utilizadas <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" width="20"/>
 - **Expo**: Plataforma para desenvolvimento de aplicativos móveis usando React Native.
 - **React Native**: Framework para construir aplicações móveis nativas usando JavaScript e React.
 - **Google Maps API (PlacesAPI)**: Integração com APIs de mapas para exibição dos locais de descarte.
