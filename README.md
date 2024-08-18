@@ -38,6 +38,8 @@ npx expo start
   - services/: Serviços de API e outras funcionalidades de backend.
   - assets/: Imagens, ícones e outros recursos estáticos.
 
+---
+
 # Contribuição
 Contribuições são bem-vindas! Se você tiver sugestões ou melhorias, sinta-se à vontade para abrir issues ou pull requests.
 
