@@ -87,7 +87,7 @@ export const Input = styled.TextInput`
     font-size: ${RFValue(18)}px;
 `;
 
-export const LoginButton = styled.TouchableOpacity`
+export const UpdateButton = styled.TouchableOpacity`
     width: 100%;
     height: ${RFValue(60)}px;
     background-color: ${({ theme }) => theme.colors.dark};
@@ -96,41 +96,9 @@ export const LoginButton = styled.TouchableOpacity`
     align-items: center;
 `;
 
-export const GoogleButton = styled(LoginButton)`
-    background-color: ${({ theme }) => theme.colors.bgButtonLight};
-    border: ${RFValue(3)}px solid ${({ theme }) => theme.colors.dark};
-`;
-
 export const ButtonText = styled.Text`
     font-size: ${RFValue(22)}px;
     font-weight: 500;
     text-transform: uppercase;
     color: ${({ theme }) => theme.colors.white};
-`;
-
-export const OrContainer = styled.View`
-    width: 100%;
-    margin: ${RFValue(20)}px 0;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-`;
-
-export const OrLine = styled.View`
-    width: 40%;
-    height: ${RFValue(2)}px;
-    background-color: ${({ theme }) => theme.colors.bgButtonLight};
-    border-radius: ${RFValue(1)}px;
-`;
-
-export const OrText = styled.Text`
-    font-size: ${RFValue(18)}px;
-    font-weight: 700;
-    color: ${({ theme }) => theme.colors.bgButtonLight};
-`;
-
-export const GoogleIcon = styled.Image`
-    position: absolute;
-    top: ${RFValue(10)}px;
-    left: ${RFValue(16)}px;
 `;

@@ -26,7 +26,7 @@ const Login = () => {
         password: ""
     });
 
-    const handleLogin = () => {
+    const handleLogin = async () => {
         const trimmedEmail = fields.email.trim();
         const trimmedPassword = fields.password.trim();
 
@@ -108,7 +108,16 @@ const Login = () => {
                                 onPress={handleLogin}
                             >
                                 <ButtonText>Acessar</ButtonText>
-                                <FontAwesome6 name="circle-arrow-right" size={RFValue(26)} color={theme.colors.white} style={{ position: "absolute", right: RFValue(18), top: RFValue(16) }} />
+                                <FontAwesome6
+                                    name="circle-arrow-right"
+                                    size={RFValue(26)}
+                                    color={theme.colors.white}
+                                    style={{
+                                        position: "absolute",
+                                        right: RFValue(16),
+                                        top: RFValue(16)
+
+                                    }} />
                             </LoginButton>
 
                             <OrContainer>
@@ -122,7 +131,16 @@ const Login = () => {
                             >
                                 <GoogleIcon source={googleIcon} />
                                 <ButtonText>Google</ButtonText>
-                                <FontAwesome6 name="circle-arrow-right" size={RFValue(26)} color={theme.colors.white} style={{ position: "absolute", right: RFValue(18), top: RFValue(14) }} />
+                                <FontAwesome6
+                                    name="circle-arrow-right"
+                                    size={RFValue(26)}
+                                    color={theme.colors.white}
+                                    style={{
+                                        position: "absolute",
+                                        right: RFValue(13),
+                                        top: RFValue(13)
+
+                                    }} />
                             </GoogleButton>
                         </FieldsContainer>
                     </FieldsLineContainer>

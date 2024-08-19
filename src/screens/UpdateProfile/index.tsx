@@ -1,13 +1,15 @@
-import React, { useState } from 'react'
-import { BackButton, ButtonText, FieldsContainer, FieldsLineContainer, Input, InputContainer, InputLabel, InputLabelContainer, Line, NormalText, ScrollContainer, TextContainer, Title, RegisterButton } from './styled';
+import React, { useEffect, useState } from 'react'
+import { BackButton, ButtonText, FieldsContainer, FieldsLineContainer, Input, InputContainer, InputLabel, InputLabelContainer, Line, NormalText, ScrollContainer, TextContainer, Title, UpdateButton } from './styled';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from 'styled-components/native'
-import { PropsStack } from '../../routes';
+import { PropsNavigationStack, PropsStack } from '../../routes';
 import { LinearGradient } from 'expo-linear-gradient';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { FontAwesome6, MaterialIcons, FontAwesome } from "@expo/vector-icons"
 import useAuth from '../../hook/useAuth';
 import { Alert } from 'react-native';
+import userService from '../../services/userService';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import Loader from '../Loader';
 
 interface fieldsProps {
@@ -17,10 +19,11 @@ interface fieldsProps {
     confirmPassword: string;
 }
 
-const Register = () => {
+type Props = NativeStackScreenProps<PropsNavigationStack, "UpdateProfile">;
+
+const UpdateProfile = ({ route }: Props) => {
     const theme = useTheme();
     const navigation = useNavigation<PropsStack>();
-    const { register } = useAuth();
 
     const [fields, setFields] = useState<fieldsProps>({
         name: "",
@@ -30,33 +33,54 @@ const Register = () => {
     });
     const [isLoading, setIsLoading] = useState(false);
 
-    const handleRegister = async () => {
+    const { logout } = useAuth();
+    const { userInfo } = route.params || {};
+
+    const handleUpdate = async () => {
         const trimmedName = fields.name.trim();
         const trimmedEmail = fields.email.trim();
-        const trimmedPassword = fields.password.trim();
-        const trimmedConfirmPassword = fields.confirmPassword.trim();
+        setFields({
+            name: trimmedName,
+            email: trimmedEmail,
+            password: fields.password,
+            confirmPassword: fields.confirmPassword
+        });
 
-        if (!trimmedName || !trimmedEmail || !trimmedPassword || !trimmedConfirmPassword) {
-            Alert.alert("Aviso", "Preencha todos os campos!");
+        if (fields.name === "") {
+            Alert.alert("Aviso", "Preencha o campo de nome!");
             return;
+        } else if (fields.email === "") {
+            Alert.alert("Aviso", "Preencha o campo de email!");
+            return;
+        } else {
+            setIsLoading(true);
+            const response = await userService.updateUserProfile(fields);
+            setIsLoading(false);
+
+            if (response.status === 400) {
+                Alert.alert("Erro", "Email já cadastrado!");
+                return;
+            }
+
+            if (fields.email !== userInfo?.email) logout();
+
+            Alert.alert("Sucesso", "Usuário cadastrado com sucesso!");
+            navigation.navigate("Home");
         }
 
-        if (trimmedPassword.length < 8) {
-            Alert.alert("Aviso", "A senha deve conter pelo menos 8 caracteres!");
-            return;
-        }
-
-        if (trimmedPassword !== trimmedConfirmPassword) {
-            Alert.alert("Aviso", "As senhas são diferentes!");
-            return;
-        }
-
-        setIsLoading(true);
-        register(trimmedName, trimmedEmail, trimmedPassword);
-        setIsLoading(false);
-        Alert.alert("Sucesso", "Usuário cadastrado com sucesso!");
-        navigation.navigate("Login");
     }
+
+    const handleSetInfos = async () => {
+        setFields({
+            ...fields,
+            name: userInfo?.name || "",
+            email: userInfo?.email || ""
+        })
+    }
+
+    useEffect(() => {
+        handleSetInfos();
+    }, []);
 
     if (isLoading) return <Loader type='save' />
 
@@ -74,8 +98,8 @@ const Register = () => {
 
             <ScrollContainer>
                 <TextContainer>
-                    <Title>Que bom te ver por aqui!</Title>
-                    <NormalText>Para uma melhor experiência realize o cadastro pelos campos abaixo.</NormalText>
+                    <Title>Edição de perfil</Title>
+                    <NormalText>Nesta tela você pode alterar as informações da sua conta.</NormalText>
                 </TextContainer>
 
                 <LinearGradient
@@ -158,11 +182,11 @@ const Register = () => {
                                 </InputContainer>
                             </InputLabelContainer>
 
-                            <RegisterButton
+                            <UpdateButton
                                 activeOpacity={0.85}
-                                onPress={handleRegister}
+                                onPress={handleUpdate}
                             >
-                                <ButtonText>Acessar</ButtonText>
+                                <ButtonText>Salvar</ButtonText>
                                 <FontAwesome6
                                     name="circle-arrow-right"
                                     size={RFValue(26)}
@@ -173,7 +197,7 @@ const Register = () => {
                                         top: RFValue(16)
 
                                     }} />
-                            </RegisterButton>
+                            </UpdateButton>
                         </FieldsContainer>
                     </FieldsLineContainer>
                 </LinearGradient>
@@ -182,4 +206,4 @@ const Register = () => {
     )
 }
 
-export default Register;
+export default UpdateProfile;

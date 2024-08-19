@@ -22,60 +22,76 @@ const Welcome = () => {
   };
 
   return (
-      <LinearGradient
-        colors={theme.colors.bgMain}
-        style={{ flex: 1 }}
-      >
-        <ScrollContainer>
-          <LogoTextContainer>
-            <LogoImage 
-              source={logoImage}
-            />
-            <Title>Bem-vindo ao EcoMap</Title>
-            <NormalText>Para uma melhor experiência realize o login ou cadastre-se pelos campos abaixo.</NormalText>
-          </LogoTextContainer>
+    <LinearGradient
+      colors={theme.colors.bgMain}
+      style={{ flex: 1 }}
+    >
+      <ScrollContainer>
+        <LogoTextContainer>
+          <LogoImage
+            source={logoImage}
+          />
+          <Title>Bem-vindo ao EcoMap</Title>
+          <NormalText>Para uma melhor experiência realize o login ou cadastre-se pelos campos abaixo.</NormalText>
+        </LogoTextContainer>
 
-          <LinearGradient
-            colors={theme.colors.bgContainerFields}
-            style={{
-              flex: 1,
-              height: RFValue(400),
-              marginTop: RFValue(60),
-              borderTopLeftRadius: RFValue(30),
-              borderTopRightRadius: RFValue(30),
-            }}
-          >
-            <ButtonsLineContainer>
-              <Line />
+        <LinearGradient
+          colors={theme.colors.bgContainerFields}
+          style={{
+            flex: 1,
+            height: RFValue(400),
+            marginTop: RFValue(60),
+            borderTopLeftRadius: RFValue(30),
+            borderTopRightRadius: RFValue(30),
+          }}
+        >
+          <ButtonsLineContainer>
+            <Line />
 
-              <ButtonsContainer>
-                <LoginButton
-                  activeOpacity={0.85}
-                  onPress={handleNavigateToLogin}
-                >
-                  <ButtonText>Acessar</ButtonText>
-                  <FontAwesome6 name="circle-arrow-right" size={RFValue(26)} color={theme.colors.white} style={{ position: "absolute", right: RFValue(18), top: RFValue(16) }} />
-                </LoginButton>
+            <ButtonsContainer>
+              <LoginButton
+                activeOpacity={0.85}
+                onPress={handleNavigateToLogin}
+              >
+                <ButtonText>Acessar</ButtonText>
+                <FontAwesome6
+                  name="circle-arrow-right"
+                  size={RFValue(26)} color={theme.colors.white}
+                  style={{
+                    position: "absolute",
+                    right: RFValue(16),
+                    top: RFValue(16),
+                  }} />
+              </LoginButton>
 
-                <OrContainer>
-                  <OrLine />
-                  <OrText>OU</OrText>
-                  <OrLine />
-                </OrContainer>
+              <OrContainer>
+                <OrLine />
+                <OrText>OU</OrText>
+                <OrLine />
+              </OrContainer>
 
-                <RegisterButton
-                  activeOpacity={0.85}
-                  onPress={handleNavigateToRegister}
-                >
-                  <ButtonText>Cadastrar</ButtonText>
+              <RegisterButton
+                activeOpacity={0.85}
+                onPress={handleNavigateToRegister}
+              >
+                <ButtonText>Cadastrar</ButtonText>
 
-                  <FontAwesome6 name="circle-arrow-right" size={RFValue(26)} color={theme.colors.white} style={{ position: "absolute", right: RFValue(18), top: RFValue(14) }} />
-                </RegisterButton>
-              </ButtonsContainer>
-            </ButtonsLineContainer>
-          </LinearGradient>
-        </ScrollContainer>
-      </LinearGradient>
+                <FontAwesome6
+                  name="circle-arrow-right"
+                  size={RFValue(26)}
+                  color={theme.colors.white}
+                  style={{
+                    position: "absolute",
+                    right: RFValue(13),
+                    top: RFValue(13)
+
+                  }} />
+              </RegisterButton>
+            </ButtonsContainer>
+          </ButtonsLineContainer>
+        </LinearGradient>
+      </ScrollContainer>
+    </LinearGradient>
   )
 }
 

@@ -5,11 +5,22 @@ import useAuth from "../hook/useAuth";
 import Welcome from "../screens/Welcome";
 import Login from "../screens/Login";
 import Register from "../screens/Register";
+import Home from "../screens/Home";
+import User from "../screens/User";
+import Map from "../screens/Map";
+import { User as UserEntitie } from "../entities/User";
+import UpdateProfile from "../screens/UpdateProfile";
 
 export type PropsNavigationStack = {
     Welcome: undefined;
     Login: undefined;
     Register: undefined;
+    Home: undefined;
+    User: undefined;
+    Map: undefined;
+    UpdateProfile: { 
+        userInfo?: UserEntitie;
+    };
 }
 
 const Stack = createNativeStackNavigator<PropsNavigationStack>();
@@ -38,7 +49,10 @@ const Routes = () => {
                         </>
                     ) : (
                         <>
-                            <Stack.Screen name="Welcome" component={Welcome} />
+                            <Stack.Screen name="Home" component={Home} />
+                            <Stack.Screen name="Map" component={Map} />
+                            <Stack.Screen name="User" component={User} />
+                            <Stack.Screen name="UpdateProfile" component={UpdateProfile} />
                         </>
                     )
                 }

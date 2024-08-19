@@ -5,13 +5,13 @@ import { RFValue } from "react-native-responsive-fontsize";
 const statusBarHeight = Constants.statusBarHeight;
 
 export const ScrollContainer = styled.ScrollView`
-    padding-top: ${statusBarHeight + 50}px;
+    padding-top: ${statusBarHeight + RFValue(50)}px;
     width: 100%;
 `
 
 export const LogoTextContainer = styled.View`
     align-items: center;
-    margin: 0 ${RFValue(18)}px;
+    margin: 0 ${RFValue(16)}px;
 `;
 
 export const LogoImage = styled.Image.attrs({
@@ -50,7 +50,7 @@ export const Line = styled.View`
 
 export const ButtonsContainer = styled.View`
     width: 100%;
-    padding: ${RFValue(60)}px ${RFValue(18)}px 0 ${RFValue(18)}px;
+    padding: ${RFValue(60)}px ${RFValue(16)}px 0 ${RFValue(16)}px;
 `;
 
 export const LoginButton = styled.TouchableOpacity`
@@ -69,7 +69,7 @@ export const RegisterButton = styled(LoginButton)`
 
 export const ButtonText = styled.Text`
     font-size: ${RFValue(22)}px;
-    font-weight: 900;
+    font-weight: 500;
     text-transform: uppercase;
     color: ${({ theme }) => theme.colors.white};
 `;
