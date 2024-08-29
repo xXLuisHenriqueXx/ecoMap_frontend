@@ -33,7 +33,7 @@ export const ContainerUser = styled.View`
     justify-content: center;
 `;
 
-export const UserImage = styled.View`
+export const UserImage = styled.TouchableOpacity`
     width: ${RFValue(120)}px;
     height: ${RFValue(120)}px;;
     border-width: ${RFValue(4)}px;

@@ -27,7 +27,6 @@ const User = () => {
   const { logout } = useAuth();
 
   const handleLogout = () => {
-
     Alert.alert('Atenção', 'Deseja realmente sair do aplicativo?', [
       {
         text: 'Cancelar',
@@ -64,6 +63,10 @@ const User = () => {
     navigation.navigate('UpdateProfile', { userInfo: userInfo });
   }
 
+  const handleNavigateToProfilePicture = () => {
+    navigation.navigate('ProfilePicture');
+  }
+
   if (!userInfo) return <Loader type='load' />
 
   const renderItem: ListRenderItem<any> = ({ item }) => (
@@ -94,7 +97,7 @@ const User = () => {
         </Header>
 
         <ContainerUser>
-          <UserImage>
+          <UserImage onPress={handleNavigateToProfilePicture}>
             <Feather name='plus' size={100} color={theme.colors.white} />
           </UserImage>
 

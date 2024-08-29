@@ -10,6 +10,7 @@ import User from "../screens/User";
 import Map from "../screens/Map";
 import { User as UserEntitie } from "../entities/User";
 import UpdateProfile from "../screens/UpdateProfile";
+import ProfilePicture from "../screens/ProfilePicture";
 
 export type PropsNavigationStack = {
     Welcome: undefined;
@@ -21,6 +22,7 @@ export type PropsNavigationStack = {
     UpdateProfile: { 
         userInfo?: UserEntitie;
     };
+    ProfilePicture: undefined;
 }
 
 const Stack = createNativeStackNavigator<PropsNavigationStack>();
@@ -53,6 +55,7 @@ const Routes = () => {
                             <Stack.Screen name="Map" component={Map} />
                             <Stack.Screen name="User" component={User} />
                             <Stack.Screen name="UpdateProfile" component={UpdateProfile} />
+                            <Stack.Screen name="ProfilePicture" component={ProfilePicture} />
                         </>
                     )
                 }
