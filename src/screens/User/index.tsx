@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Container, ContainerUser, CreatedText, Header, HighlightedText, IconButton, Line, PlaceNormalText, PlacesContainer, PlaceTitle, Title, UserImage, UserName, UserNameButton } from './styled';
+import { Container, ContainerUser, CreatedText, Header, HighlightedText, IconButton, Line, PlaceNormalText, PlacesContainer, PlaceTitle, Title, UserImage, UserImageButton, UserImagePlaceholder, UserName, UserNameButton } from './styled';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useTheme } from 'styled-components/native';
 import Navbar from '../../components/Navbar';
@@ -23,6 +23,7 @@ const User = () => {
   const [userInfo, setUserInfo] = useState<UserEntitie | undefined>();
   const [places, setPlaces] = useState<any[]>([]);
 
+  const API_BASE_URL = process.env.EXPO_PUBLIC_API_KEY;
 
   const { logout } = useAuth();
 
@@ -58,6 +59,8 @@ const User = () => {
   useEffect(() => {
     handleUserInfo();
   }, []);
+
+  console.log(`${API_BASE_URL}/${userInfo?.profilePicture}`);
 
   const handleNavigateToUpdateProfile = () => {
     navigation.navigate('UpdateProfile', { userInfo: userInfo });
@@ -97,9 +100,15 @@ const User = () => {
         </Header>
 
         <ContainerUser>
-          <UserImage onPress={handleNavigateToProfilePicture}>
-            <Feather name='plus' size={100} color={theme.colors.white} />
-          </UserImage>
+          <UserImageButton activeOpacity={0.85} onPress={handleNavigateToProfilePicture}>
+            {userInfo?.profilePicture ? (
+              <UserImage
+                source={{ uri: `${API_BASE_URL}/${userInfo?.profilePicture}` }}
+              />
+            ) : (
+              <UserImagePlaceholder />
+            )}
+          </UserImageButton>
 
           <UserNameButton activeOpacity={0.8} onPress={handleNavigateToUpdateProfile}>
             <UserName>{userInfo?.name}</UserName>

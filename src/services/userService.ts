@@ -1,7 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as SecureStore from "expo-secure-store";
 import api from "./api";
-import { ProfilePicture } from "../entities/User";
 
 interface updateProfile {
     name: string;
@@ -9,7 +8,11 @@ interface updateProfile {
 }
 
 interface UpdateProfilePicture {
-    profilePicture: ProfilePicture;
+    profilePicture: string;
+}
+
+interface RemoveProfilePicture {
+    profilePicture: string;
 }
 
 const userService = {
@@ -40,15 +43,24 @@ const userService = {
         return response;
     },
 
-    updateProfilePicture: async (formData: FormData) => {
+    updateProfilePicture: async (params: UpdateProfilePicture) => {
         const token = await SecureStore.getItemAsync("luisapp-token");
 
-        const response = await api.put("/profile/picture", formData, {
+        const extension = params.profilePicture.split('.').pop()?.toLowerCase();
+        const mimeType = extension === 'jpg' || extension === 'jpeg' ? 'image/jpeg' : 'image/png';
+
+        const formData = new FormData();
+        formData.append("profilePicture", {
+            name: `profilePicture.${extension}`,
+            uri: params.profilePicture,
+            type: mimeType
+        } as any);     
+
+        const response = await api.post('/profilepicture', formData, {
             headers: {
-                Accept: "application/json",
-                "Content-Type": "multipart/form-data",
-                Authorization: `Bearer ${token}`
-            },
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "multipart/form-data"
+            }
         });
 
         return response;
@@ -57,10 +69,10 @@ const userService = {
     removeProfilePicture: async () => {
         const token = await SecureStore.getItemAsync("luisapp-token");
 
-        const response = await api.delete("/profile/picture", {
+        const response = await api.delete('/profilepicture', {
             headers: {
                 Authorization: `Bearer ${token}`
-            },
+            }
         });
 
         return response;

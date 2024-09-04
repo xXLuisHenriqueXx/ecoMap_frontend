@@ -54,8 +54,6 @@ const Register = () => {
         setIsLoading(true);
         register(trimmedName, trimmedEmail, trimmedPassword);
         setIsLoading(false);
-        Alert.alert("Sucesso", "Usuário cadastrado com sucesso!");
-        navigation.navigate("Login");
     }
 
     if (isLoading) return <Loader type='save' />

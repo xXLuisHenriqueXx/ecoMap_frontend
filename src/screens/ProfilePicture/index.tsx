@@ -8,15 +8,25 @@ import { useNavigation } from '@react-navigation/native';
 import { PropsStack } from '../../routes';
 import { FontAwesome6 } from '@expo/vector-icons';
 import { RFValue } from 'react-native-responsive-fontsize';
+import Loader from '../Loader';
+import { Button } from 'react-native';
 
 const ProfilePicture = () => {
     const theme = useTheme();
     const navigation = useNavigation<PropsStack>();
 
-    const [image, setImage] = useState<ImagePicker.ImagePickerAsset>();
+    const [profilePicture, setProfilePicture] = useState<string | null>(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     const pickImage = async () => {
-        let result = await ImagePicker.launchImageLibraryAsync({
+        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== 'granted') {
+            console.error('Para escolher uma imagem, é necessário permitir o acesso à galeria de fotos!');
+            return;
+        }
+
+
+        const result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
             aspect: [4, 3],
@@ -24,36 +34,39 @@ const ProfilePicture = () => {
         });
 
         if (!result.canceled) {
-            setImage(result.assets[0]);
-            return result.assets[0];
+            handleUpdateProfilePicture(result.assets[0].uri);
         }
 
         return null;
     };
 
-    const updateProfilePicture = async () => {
-        const selectedImage = await pickImage();
-
-        if (selectedImage) {
-            const formData = new FormData();
-            formData.append('profilePicture', {
-                name: selectedImage.uri.split('/').pop(),
-                uri: selectedImage.uri,
-                url: "",
-                type: selectedImage.type
-            } as any);
-
-            try {
-                const response = await userService.updateProfilePicture(formData);
-                if (response.status === 204) {
-                    console.log('Profile picture updated');
-                }
-            } catch (error) {
-                console.error('Error updating profile picture', error);
-            }
+    const handleUpdateProfilePicture = async (uri: string) => {
+        setIsLoading(true);
+        
+        try {
+            await userService.updateProfilePicture({ profilePicture: uri });
+            setProfilePicture(uri);
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setIsLoading(false);
         }
     };
 
+    const handleRemoveProfilePicture = async () => {
+        setIsLoading(true);
+
+        try {
+            await userService.removeProfilePicture();
+            setProfilePicture(null);
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    if (isLoading) return <Loader type='load' />
 
     return (
         <LinearGradient
@@ -66,15 +79,17 @@ const ProfilePicture = () => {
             <Container>
                 <Title>Edição de foto de perfil</Title>
 
-                <PickImageButton activeOpacity={0.85} onPress={updateProfilePicture}>
-                    {image ? (
+                <PickImageButton activeOpacity={0.85} onPress={pickImage} disabled={isLoading}>
+                    {profilePicture ? (
                         <UserImage 
-                            source={{ uri: image.uri }}
+                            source={{ uri: profilePicture }}
                         />
                     ) : (
                         <UserImagePlaceholder />
                     )}
                 </PickImageButton>
+
+                <Button title='Remover foto' onPress={handleRemoveProfilePicture} />
             </Container>
         </LinearGradient>
     )

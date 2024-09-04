@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Alert, ListRenderItem } from 'react-native';
+import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react';
+import { Alert, ListRenderItem, RefreshControl } from 'react-native';
 import { Container, Line, NormalText, Title } from './styled';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useTheme } from 'styled-components/native';
@@ -9,6 +9,7 @@ import * as Location from 'expo-location';
 import googlePlacesService from '../../services/googlePlacesService';
 import Navbar from '../../components/Navbar';
 import Loader from '../Loader';
+import { MotiView } from 'moti';
 
 const Home = () => {
   const theme = useTheme();
@@ -16,22 +17,28 @@ const Home = () => {
   const [longitude, setLongitude] = useState<number>(0);
   const [places, setPlaces] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
-    setIsLoading(true);
-    const getNearbyPlaces = async () => {
-      try {
-        await setCurrentLocation();
-        const nearbyPlaces = await googlePlacesService.getNearbyPlaces(latitude, longitude);
-        setPlaces(nearbyPlaces);
-      } catch (error) {
-        Alert.alert('Erro', 'Não foi possível carregar os locais próximos!');
-      }
-
-    };
-
     getNearbyPlaces();
-    setIsLoading(false);
+  }, [latitude, longitude]);
+
+  const getNearbyPlaces = async () => {
+    setIsLoading(true);
+    try {
+      await setCurrentLocation();
+      const nearbyPlaces = await googlePlacesService.getNearbyPlaces(latitude, longitude);
+      setPlaces(nearbyPlaces);
+    } catch (error) {
+      Alert.alert('Erro', 'Não foi possível carregar os locais próximos!');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    getNearbyPlaces().then(() => setRefreshing(false));
   }, [latitude, longitude]);
 
   const setCurrentLocation = async () => {
@@ -48,7 +55,16 @@ const Home = () => {
     }
   }
 
-  const renderItem: ListRenderItem<any> = ({ item }) => (
+  const renderItem: ListRenderItem<any> = ({ item, index }) => (
+    <MotiView
+      from={{ translateX: -300, opacity: 0 }}
+      animate={{ translateX: 0, opacity: 1 }}
+      transition={{
+        type: 'timing',
+        duration: 500,
+        delay: index * 100,
+      }}
+    >
     <ContainerPlace
       place={{
         name: item.name,
@@ -57,6 +73,7 @@ const Home = () => {
         photos: item.photos
       }}
     />
+    </MotiView>
   )
 
   if (isLoading) return <Loader type='load' />
@@ -78,6 +95,9 @@ const Home = () => {
         }
         showsVerticalScrollIndicator={false}
         renderItem={renderItem}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
       />
       <Navbar screen="Home" />
     </LinearGradient>

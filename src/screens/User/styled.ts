@@ -33,15 +33,27 @@ export const ContainerUser = styled.View`
     justify-content: center;
 `;
 
-export const UserImage = styled.TouchableOpacity`
+export const UserImageButton = styled.TouchableOpacity`
+    padding: ${RFValue(4)}px;
+    background-color: ${({ theme }) => theme.colors.white};
+    border-radius: ${RFValue(60)}px;
+`;
+
+export const UserImagePlaceholder = styled.View`
     width: ${RFValue(120)}px;
-    height: ${RFValue(120)}px;;
-    border-width: ${RFValue(4)}px;
-    border-color: ${({ theme }) => theme.colors.white};
-    border-radius: ${RFValue(75)}px;
+    height: ${RFValue(120)}px;
     background-color: #110F1F;
+    border-radius: ${RFValue(60)}px;
     align-items: center;
     justify-content: center;
+`;
+
+export const UserImage = styled.Image.attrs({
+    resizeMode: 'cover'
+})`
+width: ${RFValue(120)}px;
+height: ${RFValue(120)}px;;
+border-radius: ${RFValue(60)}px;
 `;
 
 export const UserNameButton = styled.TouchableOpacity`
