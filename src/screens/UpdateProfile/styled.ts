@@ -6,8 +6,8 @@ const statusBarHeight = Constants.statusBarHeight;
 
 export const BackButton = styled.TouchableOpacity`
     position: absolute;
-    top: ${ statusBarHeight + RFValue(16)}px;
-    left: ${RFValue(16)}px;
+    top: ${ statusBarHeight + RFValue(8)}px;
+    left: ${RFValue(8)}px;
     height: ${RFValue(40)}px;
     width: ${RFValue(40)}px;
     background-color: ${({ theme }) => theme.colors.lightGreen};
@@ -24,7 +24,7 @@ export const ScrollContainer = styled.ScrollView`
 
 export const TextContainer = styled.View`
     align-items: center;
-    margin: 0 ${RFValue(16)}px;
+    margin: 0 ${RFValue(8)}px;
 `;
 
 export const Title = styled.Text`
@@ -57,7 +57,7 @@ export const Line = styled.View`
 
 export const FieldsContainer = styled.View`
     width: 100%;
-    padding: ${RFValue(50)}px ${RFValue(16)}px 0 ${RFValue(16)}px;
+    padding: ${RFValue(50)}px ${RFValue(8)}px 0 ${RFValue(8)}px;
 `;
 
 export const InputLabelContainer = styled.View`
@@ -68,7 +68,7 @@ export const InputLabel = styled.Text`
     font-size: ${RFValue(12)}px;
     font-weight: 500;
     color: ${({ theme }) => theme.colors.darkGreen};
-    margin-left: ${RFValue(16)}px;
+    margin-left: ${RFValue(8)}px;
 `;
 
 export const InputContainer = styled.View`
@@ -97,7 +97,7 @@ export const UpdateButton = styled.TouchableOpacity`
 `;
 
 export const ButtonText = styled.Text`
-    font-size: ${RFValue(22)}px;
+    font-size: ${RFValue(18)}px;
     font-weight: 500;
     text-transform: uppercase;
     color: ${({ theme }) => theme.colors.white};

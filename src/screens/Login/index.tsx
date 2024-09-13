@@ -114,8 +114,7 @@ const Login = () => {
                                     color={theme.colors.white}
                                     style={{
                                         position: "absolute",
-                                        right: RFValue(16),
-                                        top: RFValue(16)
+                                        right: RFValue(8)
 
                                     }} />
                             </LoginButton>
@@ -137,8 +136,7 @@ const Login = () => {
                                     color={theme.colors.white}
                                     style={{
                                         position: "absolute",
-                                        right: RFValue(13),
-                                        top: RFValue(13)
+                                        right: RFValue(8)
 
                                     }} />
                             </GoogleButton>

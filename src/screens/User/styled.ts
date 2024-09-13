@@ -7,7 +7,7 @@ const statusBarHeight = Constants.statusBarHeight;
 export const Container = styled.View`
     flex: 1;
     background-color: ${({ theme }) => theme.colors.bgMain};
-    padding: ${statusBarHeight + RFValue(16)}px ${RFValue(16)}px 0 ${RFValue(16)}px;
+    padding: ${statusBarHeight + RFValue(8)}px ${RFValue(8)}px 0 ${RFValue(8)}px;
 `;
 
 export const Header = styled.View`
@@ -83,6 +83,7 @@ export const Line = styled.View`
     height: ${RFValue(2)}px;
     background-color: ${({ theme }) => theme.colors.lightGreen};
     margin: ${RFValue(20)}px 0;
+    opacity: 0.2;
 `;
 
 export const PlacesContainer = styled.FlatList`

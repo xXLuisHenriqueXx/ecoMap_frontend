@@ -166,7 +166,7 @@ const UpdateProfile = ({ route }: Props) => {
                             </InputLabelContainer>
 
                             <InputLabelContainer>
-                                <InputLabel>COnfirmar senha</InputLabel>
+                                <InputLabel>Confirmar senha</InputLabel>
                                 <InputContainer>
                                     <MaterialIcons name="lock" size={RFValue(26)} color={theme.colors.white} style={{ marginLeft: RFValue(8), marginRight: RFValue(8) }} />
 
@@ -193,8 +193,7 @@ const UpdateProfile = ({ route }: Props) => {
                                     color={theme.colors.white}
                                     style={{
                                         position: "absolute",
-                                        right: RFValue(16),
-                                        top: RFValue(16)
+                                        right: RFValue(8),
 
                                     }} />
                             </UpdateButton>

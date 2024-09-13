@@ -8,8 +8,8 @@ interface screenEnabledProps {
 export const Container = styled.View`
     position: absolute;
     width: 100%;
-    height: ${RFValue(80)}px;
-    padding: 0 ${RFValue(40)}px;
+    height: ${RFValue(60)}px;
+    padding: 0 ${RFValue(8)}px;
     background-color: ${({ theme }) => theme.colors.dark};
     border-top-left-radius: ${RFValue(20)}px;
     border-top-right-radius: ${RFValue(20)}px;
@@ -20,16 +20,17 @@ export const Container = styled.View`
 `;
 
 export const IconButtonInactive = styled.TouchableOpacity`
-    width: ${RFValue(60)}px;
-    height: ${RFValue(60)}px;
+    width: ${RFValue(40)}px;
+    height: 100%;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 `;
 
 export const IconButtonActive = styled(IconButtonInactive)`
-    background-color: ${({ theme }) => theme.colors.bgIcon};
-    border-radius: ${RFValue(15)}px;
+    border-top-width: ${RFValue(2)}px;
+    border-color: ${({ theme }) => theme.colors.lightGreen};
+    border-radius: ${RFValue(4)}px;
 `;
 
 export const ButtonText = styled.Text<screenEnabledProps>`

@@ -59,8 +59,7 @@ const Welcome = () => {
                   size={RFValue(26)} color={theme.colors.white}
                   style={{
                     position: "absolute",
-                    right: RFValue(16),
-                    top: RFValue(16),
+                    right: RFValue(8),
                   }} />
               </LoginButton>
 
@@ -82,8 +81,7 @@ const Welcome = () => {
                   color={theme.colors.white}
                   style={{
                     position: "absolute",
-                    right: RFValue(13),
-                    top: RFValue(13)
+                    right: RFValue(8),
 
                   }} />
               </RegisterButton>

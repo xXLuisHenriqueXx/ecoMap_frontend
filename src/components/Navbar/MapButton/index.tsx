@@ -23,4 +23,4 @@ const MapButton = () => {
     )
 }
 
-export default MapButton
+export default MapButton;

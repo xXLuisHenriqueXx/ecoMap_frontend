@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 import { Alert, ListRenderItem, RefreshControl } from 'react-native';
-import { Container, Line, NormalText, Title } from './styled';
+import { Container, NormalText, Title } from './styled';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useTheme } from 'styled-components/native';
 import ContainerPlace from '../../components/ContainerPlace';
@@ -18,9 +18,11 @@ const Home = () => {
   const [places, setPlaces] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     getNearbyPlaces();
+    getMessage();
   }, [latitude, longitude]);
 
   const getNearbyPlaces = async () => {
@@ -52,6 +54,18 @@ const Home = () => {
 
       setLatitude(lat);
       setLongitude(long);
+    }
+  }
+
+  const getMessage = () => {
+    const hour = new Date().getHours();
+
+    if (hour >= 0 && hour < 12) {
+      setMessage('Bom dia!');
+    } else if (hour >= 12 && hour < 18) {
+      setMessage('Boa tarde!');
+    } else {
+      setMessage('Boa noite!');
     }
   }
 
@@ -88,9 +102,8 @@ const Home = () => {
         data={places}
         ListHeaderComponent={
           <>
-            <Title>Locais próximos</Title>
+            <Title>{message}</Title>
             <NormalText>{places.length} locais próximos a você!</NormalText>
-            <Line />
           </>
         }
         showsVerticalScrollIndicator={false}

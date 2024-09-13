@@ -12,7 +12,7 @@ export default function App() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <AuthContextProvider>
-        <StatusBar style='light' backgroundColor='#0C0A1D' />
+        <StatusBar style='light' backgroundColor='#212125' />
         <ThemeProvider theme={myTheme}>
           <Routes />
         </ThemeProvider>

@@ -11,7 +11,7 @@ export const ScrollContainer = styled.ScrollView`
 
 export const LogoTextContainer = styled.View`
     align-items: center;
-    margin: 0 ${RFValue(16)}px;
+    margin: 0 ${RFValue(8)}px;
 `;
 
 export const LogoImage = styled.Image.attrs({
@@ -50,7 +50,7 @@ export const Line = styled.View`
 
 export const ButtonsContainer = styled.View`
     width: 100%;
-    padding: ${RFValue(60)}px ${RFValue(16)}px 0 ${RFValue(16)}px;
+    padding: ${RFValue(60)}px ${RFValue(8)}px 0 ${RFValue(8)}px;
 `;
 
 export const LoginButton = styled.TouchableOpacity`
@@ -64,11 +64,11 @@ export const LoginButton = styled.TouchableOpacity`
 
 export const RegisterButton = styled(LoginButton)`
     background-color: ${({ theme }) => theme.colors.bgButtonLight};
-    border: ${RFValue(3)}px solid ${({ theme }) => theme.colors.dark};
+    border: ${RFValue(2)}px solid ${({ theme }) => theme.colors.dark};
 `;
 
 export const ButtonText = styled.Text`
-    font-size: ${RFValue(22)}px;
+    font-size: ${RFValue(18)}px;
     font-weight: 500;
     text-transform: uppercase;
     color: ${({ theme }) => theme.colors.white};

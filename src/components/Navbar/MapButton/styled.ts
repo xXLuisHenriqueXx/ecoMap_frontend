@@ -1,14 +1,13 @@
 import styled from "styled-components/native";
 import { RFValue } from "react-native-responsive-fontsize";
 
-export const Container = styled.View.attrs({
-    style: {
-        transform: [{ translateX: -50 }]
-    }
-})`
+export const Container = styled.View`
+    width: 100%;
+    align-self: center;
+    align-items: center;
     position: absolute;
-    bottom: ${RFValue(30)}px;
-    left: 50%;
+    margin: 0 ${RFValue(8)}px;
+    bottom: ${RFValue(32)}px;
 `;
 
 export const IconButton = styled.TouchableOpacity`

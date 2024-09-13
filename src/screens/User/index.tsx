@@ -60,8 +60,6 @@ const User = () => {
     handleUserInfo();
   }, []);
 
-  console.log(`${API_BASE_URL}/${userInfo?.profilePicture}`);
-
   const handleNavigateToUpdateProfile = () => {
     navigation.navigate('UpdateProfile', { userInfo: userInfo });
   }

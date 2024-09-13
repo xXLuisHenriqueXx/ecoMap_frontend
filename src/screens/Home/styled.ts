@@ -5,26 +5,22 @@ import { RFValue } from "react-native-responsive-fontsize";
 const statusBarHeight = Constants.statusBarHeight;
 
 export const Container = styled.FlatList`
-    padding: ${statusBarHeight + RFValue(60)}px ${RFValue(16)}px 0 ${RFValue(16)}px;
+    padding: ${statusBarHeight + RFValue(60)}px ${RFValue(8)}px 0 ${RFValue(8)}px;
 `;
 
 export const Title = styled.Text`
-    font-size: ${RFValue(30)}px;
+    width: 100%;
+    text-align: start;
+    font-size: ${RFValue(40)}px;
     font-weight: bold;
     color: ${({ theme }) => theme.colors.lightYellow};
-    text-align: center;
 `;
 
 export const NormalText = styled.Text`
-    font-size: ${RFValue(16)}px;
-    font-weight: 400;
-    color: ${({ theme }) => theme.colors.white};
-    text-align: center;
-`;
-
-export const Line = styled.View`
     width: 100%;
-    height: ${RFValue(2)}px;
-    background-color: ${({ theme }) => theme.colors.lightGreen};
-    margin: ${RFValue(20)}px 0 ${RFValue(40)}px 0;
+    text-align: start;
+    font-size: ${RFValue(14)}px;
+    font-weight: 300;
+    color: ${({ theme }) => theme.colors.white};
+    margin-bottom: ${RFValue(60)}px;
 `;
