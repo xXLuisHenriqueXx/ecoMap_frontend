@@ -6,7 +6,6 @@ import { myTheme } from './src/styles';
 import Routes from './src/routes';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import 'react-native-gesture-handler';
-import 'react-native-reanimated';
 
 export default function App() {
   return (
